@@ -1,7 +1,7 @@
 var Shop = require('../models/shop');
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/sorringPizza');
+mongoose.connect(process.env.MONGODB_URI ||'mongodb://localhost:27017/sorringPizza');
 
 var shop = new Shop({
   timeId: 1,

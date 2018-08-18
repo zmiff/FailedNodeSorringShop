@@ -1,7 +1,7 @@
 var Product = require('../models/product');
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/sorringPizza');
+mongoose.connect(process.env.MONGODB_URI ||'mongodb://localhost:27017/sorringPizza');
 
 (async () => {
     let remove = await Product.find({type: 'grill'});
