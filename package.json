@@ -1,6 +1,9 @@
 {
   "name": "sorringshop",
   "version": "0.0.0",
+  "engines": {
+    "node": "9.5.0"
+  },
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
@@ -9,6 +12,7 @@
     "bcrypt": "^1.0.3",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.18.2",
+    "compression": "^1.7.3",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^2.0.1",
     "cookie-parser": "~1.4.3",

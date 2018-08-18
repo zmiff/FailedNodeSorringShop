@@ -21,7 +21,7 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
-mongoose.connect('mongodb://localhost:27017/sorringPizza');
+mongoose.connect(process.env.MONGODB_URI ||'mongodb://localhost:27017/sorringPizza');
 require('./config/passport');
 
 // view engine setup
