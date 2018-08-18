@@ -7,7 +7,7 @@ const Order = require('../models/order');
 const Shop = require('../models/shop')
 const Cart = require('./../JS/cart');
 
-var middleware = require('./../js/middleware');
+var middleware = require('./../js/middleware.js');
 var geocode = require('./../js/geocode');
 var functions = require('./../js/functions');
 
