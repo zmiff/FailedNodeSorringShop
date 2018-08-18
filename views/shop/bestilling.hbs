@@ -1,0 +1,102 @@
+<div class="row">
+  <div class="col-md-6 col-sm-6 offset-3">
+    <ul class="list-group">
+      {{# if messages}}
+        <div class="alert alert-danger">
+          {{# each messages}}
+            <p>{{this}}</p>
+          {{/each}}
+        </div>
+      {{/if}}
+      <form action="/sendBestilling" method="post">
+        <li class="list-group-item">
+          <label for="inputStateLevering">Vælg levering</label>
+          <select name="inputStateLevering" id="inputStateLevering" class="form-control">
+            <option></option>
+            <option>Udbringning hurtigst muligt +30 kr</option>
+            <option>Udbringnig vælg tidspunkt +30 kr</option>
+            <option>Afhentning hurtigs muligt</option>
+            <option>Afhentning vælg tidspunkt</option>
+          </select>
+          <input id="pickupDelivery" name="pickupDelivery" hidden type="text" value="delivery"  />
+        </li>
+        <li class="list-group-item">
+          <label for="inputStateBetaling">Vælg betalingsform</label>
+          <select name="inputStateBetaling" id="inputStateBetaling" class="form-control">
+            <option></option>
+            <option>Online med kort</option>
+            <option>Ved levering/afhentning (kontant eller mobilepay)</option>
+          </select>
+          <input id="cashOnline" name="cashOnline" hidden type="text" value="online" />
+        </li>
+        <li class="list-group-item" style="display: none;" id="timePicker">
+          <div>
+            <label for="inputStateTidspunkt">Tidspunkt</label>
+            <input name="inputStateTidspunkt" id="inputStateTidspunkt" type="text" class="form-control" placeholder="Vælg">
+            <input id="asapPick" name="asapPick" hidden  type="text" value="asap"  />
+          </div>
+          <!--ikke i brug
+          <div>
+            <label for="inputStateDato">Dag</label>
+            <input id="inputStateDato" type="text" class="form-control">
+          </div>
+        -->
+        </li>
+    </ul>
+    <ul class="list-group">
+      <li class="list-group-item">
+        {{# if name}}
+          <label for="inputName">Navn</label>
+          <input name="inputName" id="inputName" type="text" class="form-control" value="{{name}}"/>
+        {{else}}
+          <label for="inputName">Navn</label>
+          <input name="inputName" id="inputName" type="text" class="form-control" placeholder="indtast navn"/>
+        {{/ if}}
+        {{# if address}}
+          <label for="inputAddress">Adresse</label>
+          <input name="inputAddress" id="inputAddress" type="text" class="form-control" value="{{address}}"/>
+        {{else}}
+          <label for="inputAddress">Adresse</label>
+          <input name="inputAddress" id="inputAddress" type="text" class="form-control" placeholder="indtast adresse"/>
+        {{/ if}}
+        {{# if zip}}
+          <label for="inputZip">Postnummer</label>
+          <input name="inputZip" id="inputZip" type="text" class="form-control" value="{{zip}}"/>
+        {{else}}
+          <label for="inputZip">Postnummer</label>
+          <input name="inputZip" id="inputZip" type="text" class="form-control" placeholder="indtast postnummer"/>
+        {{/ if}}
+        {{# if city}}
+          <label for="inputCity">By</label>
+          <input name="inputCity" id="inputCity" type="text" class="form-control" value="{{city}}"/>
+        {{else}}
+          <label for="inputCity">By</label>
+          <input name="inputCity" id="inputCity" type="text" class="form-control" placeholder="indtast by"/>
+        {{/ if}}
+        {{# if phone}}
+          <label for="inputPhone">telefonnummer</label>
+          <input name="inputPhone" id="inputPhone" type="text" class="form-control" value="{{phone}}"/>
+        {{else}}
+          <label for="inputPhone">telefonnummer</label>
+          <input name="inputPhone" id="inputPhone" type="text" class="form-control" placeholder="indtast telefonnummer"/>
+        {{/ if}}
+      </li>
+    </ul>
+    <div class="row">
+      <div class="col-sm-6 col-md-6">
+        <input id="btnSend" type="submit" class="btn btn-success" value="Til betaling"/>
+      </div>
+    </div>
+  </form>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+<script>
+  let deliveryTime = {{delTime}};
+  let pickupTime = {{pickTime}};
+  var socket = io.connect();
+  socket.on('connected', function(data){
+  console.log(data.connected)
+  });
+</script>

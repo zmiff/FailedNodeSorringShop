@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-md-6 col-sm-6 offset-3">
+    <div class="text-center">
+      <img id="loadingImg" src="images/loading.gif" class="rounded" alt="...">
+      <p>
+        Vent venligst mens restauranten behandler din ordre...
+      </p>
+      <p>
+        ordre #{{order}}
+      </p>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+<script>
+  var id ='{{order}}';
+  console.log(id);
+  var socket = io.connect();
+  socket.on('connected', function(data){
+  console.log(data.connected)
+  });
+  socket.on(`Accepted${id}`, function(data){
+    window.location.href = `/accepted?id=${id}`;
+  });
+  socket.on(`declined${id}`, function(data){
+    window.location.href = `/declined?id=${id}`;
+  });
+</script>

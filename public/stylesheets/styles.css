@@ -1,0 +1,163 @@
+.toppingsul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0, 0, 0, 10px;
+}
+
+/* green color paleton #479030 */
+/* red color paleton #AA4139 */
+
+/*TWBS Color link https://work.smarchal.com/twbscolor/4.0.0/scss/fbfaf7aa4139aa4139ecf0f10*/
+.dropdown-menu { right: 0; left: auto; }
+.navbar {
+  background-color: #fbfaf7;
+  border-bottom:5px solid #AA4139;
+  padding-bottom: 0;
+  padding-top:0;
+}
+.navbar .navbar-brand {
+  color: #aa4139;
+}
+.navbar .navbar-brand:hover,
+.navbar .navbar-brand:focus {
+  color: #625E5E;
+}
+.navbar .navbar-text a:hover,
+.navbar .navbar-text a:focus {
+  color: #ecf0f1;
+}
+.navbar .navbar-nav .nav-link {
+  color: #aa4139;
+  padding-top: 15px;
+  height:60px;
+}
+.navbar .navbar-nav .nav-link:not(.disabled):hover,
+.navbar .navbar-nav .nav-link:not(.disabled):focus {
+  color: #625E5E;
+}
+.navbar .navbar-nav .nav-item.active .nav-link,
+.navbar .navbar-nav .nav-item.active .nav-link:hover,
+.navbar .navbar-nav .nav-item.active .nav-link:focus,
+.navbar .navbar-nav .nav-item.show .nav-link,
+.navbar .navbar-nav .nav-item.show .nav-link:hover,
+.navbar .navbar-nav .nav-item.show .nav-link:focus {
+  color: #625E5E;
+}
+.navbar .navbar-toggle {
+  border-color: #aa4139;
+}
+.navbar .navbar-toggle:hover,
+.navbar .navbar-toggle:focus {
+  background-color: #aa4139;
+}
+.navbar .navbar-toggle .navbar-toggler-icon {
+  color: #aa4139;
+}
+
+.navbar .navbar-link {
+  color: #aa4139;
+}
+.navbar .navbar-link:hover {
+  color: #ecf0f1;
+}
+
+
+
+
+
+/*.navbar{
+    background-color:#fbfaf7;
+    border-bottom:5px solid #AA4139 ;
+    margin-bottom:0;
+}
+.navbar .navbar-brand {
+    color: #AA4139 ;
+}
+
+#navbarItems > a {
+    color: #AA4139 ;
+}
+
+.navbar .navbar-collapse .navbar-nav .nav-item > .active > a,
+.navbar .navbar-nav > .active > a:hover,
+.navbar .navbar-nav > .active > a:focus {
+  color: #ecf0f1;
+  background-color: #AA4139 ;
+}*/
+
+
+
+/* custom button color scheme */
+.btn-meny{
+    margin: 0 auto;
+    width:100%;
+    text-align:center;
+    margin-bottom:10px;
+    border-bottom: 1px solid #AA4139;
+}
+.btn-add{
+    margin: 0 auto;
+    text-align:center;
+    margin-bottom:10px;
+    border: 1px solid #AA4139;
+    color: black;
+}
+.btn-remove-topping{
+    font-size: 0.6em;
+    margin: 0 auto;
+    padding-top: 1px;
+    padding-right: 10px;
+    padding-bottom: 1px;
+    padding-left: 10px;
+    text-align:center;
+    border: 1px solid #AA4139;
+    color: black;
+}
+.input-cnt{
+    padding-top:8px;
+    width:36px;
+    height:38px;
+    margin: 0 auto;
+    text-align:center;
+    /*border: 1px solid #AA4139;*/
+    color: black;
+    border-radius: 5px;
+}
+.vl{
+  border-left: 2px solid #625E5E;
+  padding-right: 5px;
+
+}
+/*
+.btn-custom {
+  background-color: hsl(201, 100%, 30%) !important;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#AA4139", endColorstr="#006399");
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#AA4139 to(#006399));
+  background-image: -moz-linear-gradient(top, #AA4139, #006399);
+  background-image: -ms-linear-gradient(top, #AA4139, #006399);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #AA4139), color-stop(100%, #006399));
+  background-image: -webkit-linear-gradient(top, #AA4139, #006399);
+  background-image: -o-linear-gradient(top, #AA4139, #006399);
+  background-image: linear-gradient(#AA4139, #006399);
+  border-color: #006399 #006399 hsl(201, 100%, 25%);
+  color: #fff !important;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.33);
+  -webkit-font-smoothing: antialiased;
+}
+*/
+
+
+card{
+    background-color:black;
+}
+/* OMS css here */
+.OMS-toppingsP{
+  text-indent: 15px;
+  margin-bottom: 0px;
+}
+
+#loadingImg{
+  height:50px;
+  width:50px;
+}

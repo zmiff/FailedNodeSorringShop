@@ -1,0 +1,53 @@
+{{# if products}}
+  <div class="row">
+    <div class="col-md-6 col-sm-6 offset-3">
+      <ul class="list-group">
+          {{# each products}}
+              <li class="list-group-item">
+                <strong>{{ this.qty}} x {{ this.item.title }}</strong>
+                <span class="label label-success">{{this.price}} kr</span>
+                <div class="float-right">
+                  <div class="dropdown float-left">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      +
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      {{# each ../toppings}}
+                        <p>
+                          <a class="dropdown-item" href="/add-topping/{{../this.cartId}}/{{this._id}}">{{this.title}}</a>
+                        </p>
+                      {{/ each}}
+                    </div>
+                  </div>
+                  <a href="/remove/{{this.cartId}}" class="btn btn-add" role="button">X</a>
+                </div>
+                <ul class="toppingsul">
+                  {{# each this.toppings}}
+                    <li>
+                      <p class="toppingsP">+ {{this.title}} {{this.price}} kr <a href="/remove/{{../this.cartId}}/{{this.id}}" class="btn btn-remove-topping" role="button">X</a></p>
+                    </li>
+                  {{/ each}}
+                </ul>
+              </li>
+          {{/ each}}
+      </ul>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-sm-6 col-md-6 offset-3 offset-3">
+      <strong>Total: {{ totalPrice }}kr</strong>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6 col-md-6 offset-3 offset-3">
+      <a href="/bestilling" class="btn btn-success" role="button">Videre til bestilling</a>
+    </div>
+  </div>
+  {{else}}
+  <div class="row">
+    <div class="col-sm-6 col-md-6 offset-3 offset-3">
+      <h2>Ingen varer i kurv</h2>
+    </div>
+  </div>
+{{/ if}}

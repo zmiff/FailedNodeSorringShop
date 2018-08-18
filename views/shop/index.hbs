@@ -1,0 +1,80 @@
+<div class="container">
+      <div class="row">
+        <div class="col-md-12 d-none d-sm-block">
+              <img class="img-fluid" alt="Responsive image" id="cover" src="/images/toppic.jpg">
+        </div>
+      </div><!-- end top picture-->
+
+      <div class="row">
+        <div class="col-lg-12">
+          <button class="btn btn-meny" data-toggle="collapse" data-target="#pizzaer">Pizzaer</button>
+          <br>
+          <div id="pizzaer" class="meny collapse">
+            <ul class="list-group">
+              {{# each pizzas}}
+              <li class="list-group-item">{{this.title}}: {{this.description}}. <span class="float-right">{{this.price}} kr <span class="vl"></span><a href="/add-to-cart/{{this._id}}" class="btn btn-add" role="button">+</a></span></li>
+              {{/ each}}
+            </ul>
+          </div>
+          <button class="btn btn-meny" data-toggle="collapse" data-target="#pizza_special">Special Pizzaer</button>
+          <br>
+          <div id="pizza_special" class="meny collapse">
+            <ul class="list-group">
+              {{# each pizzaspc}}
+              <li class="list-group-item">{{this.title}}: {{this.description}}. <span class="float-right">{{this.price}} kr <span class="vl"></span><a href="/add-to-cart/{{this._id}}" class="btn btn-add" role="button">+</a></span></li>
+              {{/ each}}
+            </ul>
+          </div>
+          <button class="btn btn-meny" data-toggle="collapse" data-target="#grillmad">Grill mad</button>
+          <br>
+          <div id="grillmad" class="meny collapse">
+            {{# each grill}}
+              <li class="list-group-item">{{this.title}}: {{this.description}}. <span class="float-right">{{this.price}} kr <span class="vl"></span><a href="/add-to-cart/{{this._id}}" class="btn btn-add" role="button">+</a></span></li>
+            {{/ each}}
+          </div>
+          <button class="btn btn-meny" data-toggle="collapse" data-target="#drikke_varer">Drikkevarer</button>
+          <br>
+          <div id="drikke_varer" class="meny collapse">
+            {{# each drink}}
+              <li class="list-group-item">{{this.title}}: {{this.description}}. <span class="float-right">{{this.price}} kr <span class="vl"></span><a href="/add-to-cart/{{this._id}}" class="btn btn-add" role="button">+</a></span></li>
+            {{/ each}}
+          </div>
+          <button class="btn btn-meny" data-toggle="collapse" data-target="#indbagt_pizza">Indbagte Pizzaer</button>
+          <br>
+          <div id="indbagt_pizza" class="meny collapse">
+            {{# each indbagt}}
+              <li class="list-group-item">{{this.title}}: {{this.description}}. <span class="float-right">{{this.price}} kr <span class="vl"></span><a href="/add-to-cart/{{this._id}}" class="btn btn-add" role="button">+</a></span></li>
+            {{/ each}}
+          </div>
+          <button class="btn btn-meny" data-toggle="collapse" data-target="#varme_retter">Varme retter</button>
+          <br>
+          <div id="varme_retter" class="meny collapse">
+            {{# each varmeretter}}
+              <li class="list-group-item">{{this.title}}: {{this.description}}. <span class="float-right">{{this.price}} kr <span class="vl"></span><a href="/add-to-cart/{{this._id}}" class="btn btn-add" role="button">+</a></span></li>
+            {{/ each}}
+          </div>
+          <button class="btn btn-meny" data-toggle="collapse" data-target="#pita_durum">Pita og Durum</button>
+          <br>
+          <div id="pita_durum" class="meny collapse">
+            {{# each pitadurum}}
+              <li class="list-group-item">{{this.title}}: {{this.description}}. <span class="float-right">{{this.price}} kr <span class="vl"></span><a href="/add-to-cart/{{this._id}}" class="btn btn-add" role="button">+</a></span></li>
+            {{/ each}}
+          </div>
+          <button class="btn btn-meny" data-toggle="collapse" data-target="#forretter">For retter</button>
+          <br>
+          <div id="forretter" class="meny collapse">
+            {{# each forretter}}
+              <li class="list-group-item">{{this.title}}: {{this.description}}. <span class="float-right">{{this.price}} kr <span class="vl"></span><a href="/add-to-cart/{{this._id}}" class="btn btn-add" role="button">+</a></span></li>
+            {{/ each}}
+          </div>
+          <button class="btn btn-meny" data-toggle="collapse" data-target="#børne_pizza">Børne Pizza</button>
+          <br>
+          <div id="børne_pizza" class="meny collapse">
+            {{# each børne}}
+              <li class="list-group-item">{{this.title}}: {{this.description}}. <span class="float-right">{{this.price}} kr <span class="vl"></span><a href="/add-to-cart/{{this._id}}" class="btn btn-add" role="button">+</a></span></li>
+            {{/ each}}
+          </div>
+
+        </div>
+      </div><!-- end menu -->
+    </div><!-- /.container -->
