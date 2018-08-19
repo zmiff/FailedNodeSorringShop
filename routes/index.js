@@ -218,4 +218,14 @@ router.get('/accepted', middleware.indexIsLoggedIn, (req, res)=>{
   })
 })//end accepted
 
+router.get('/declined', middleware.indexIsLoggedIn, async (req, res)=>{
+  var id = req.query.id;
+  order = await Order.findOne({_id:id})
+  orderId = order._id
+  console.log(orderId)
+  res.render('shop/declined',{
+    order: orderId
+  })
+})//end declined
+
 module.exports = router;
