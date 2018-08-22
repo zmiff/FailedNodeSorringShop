@@ -1,4 +1,38 @@
+const fetch = require("node-fetch");
+
+const getLocation = async address => {
+  const origins = 'hovedgaden 8 sorring';
+  const encodedAddress = encodeURIComponent(address);
+  const key = 'AIzaSyBWj7fPMDX2SbsPOBU7Ae7tofoJgZ_ryNU';
+  const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origins}&destinations=${encodedAddress}&language=dk-DK&key=${key}`;
+  try {
+    const response = await fetch(url);
+    const json = await response.json();
+    const result = json.rows[0].elements[0];
+    if(result.status==='NOT_FOUND'){
+      return 'NOT FOUND';
+    }
+    else if(result.status==='OK' && result.status!=='NOT_FOUND'){
+      return  result
+    }
+    else{
+      result.distance.text = 'n/a'
+      result.duration.text = 'n/a'
+    }
+
+  } catch (error) {
+    throw new Error('something bad happened');
+  }
+};
+
+module.exports = {
+    getLocation
+}
+
+/*
+//old callback geocode
 var request = require('request');
+
 
 var geocodeAddress = (address, callback) => {
   var origins = 'hovedgaden 8 sorring';
@@ -29,17 +63,7 @@ var geocodeAddress = (address, callback) => {
     }
   })
 }
-
-/*
-request('https://maps.googleapis.com/maps/api/distancematrix/json?origins=kildeagervej%20241+hasselager&destinations=|hovedgaden+sorring&language=dk-DK&key=AIzaSyBWj7fPMDX2SbsPOBU7Ae7tofoJgZ_ryNU', function (error, response, body) {
-  console.log('error:', error); // Print the error if one occurred
-  console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-  var newBody = JSON.parse(body);
-  newBody = newBody.rows[0].elements[0]
-  console.log('distance:', newBody.distance.text); // Print the HTML for the Google homepage.
-  console.log('duration:', newBody.duration.text);
-});
 */
 module.exports = {
-    geocodeAddress
+    getLocation
 }

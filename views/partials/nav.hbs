@@ -22,19 +22,19 @@
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Bruger
         </a>
-          <!-- add if login block -->
+          {{# if login }}
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="/user/profile">Bruger</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="/user/logout">Log ud</a>
             </div>
-          <!-- add else block -->
+          {{else}}
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="/user/signup">Skriv op</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="/user/signin">Log ind</a>
             </div>
-
+          {{/if}}
       </li>
     </ul>
   </div>

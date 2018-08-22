@@ -18,7 +18,7 @@ socket.on('newOrder', function(data){
       str+= `<li class="list-group-item">${value.item.title}<span class="float-right">${value.item.price} kr</span>`
     }
   });
-  str+=`</li><li class="list-group-item"><p>Afstand til kunde: <span class="float-right">${data.route.distance} ${data.route.duration}</span></p></li>`
+  str+=`</li><li class="list-group-item"><p>Afstand til kunde: <span class="float-right">${data.route.distance.text} ${data.route.duration.text}</span></p></li>`
   str+=`<li class="list-group-item"><p class="font-weight-bold">Total: <span class="float-right">${data.totalPrice} kr</span></p></li>`
   str+=`<li class="list-group-item">${data.customerDetails.name}<br>${data.customerDetails.address}<br>${data.customerDetails.zip} ${data.customerDetails.city}<br>${data.customerDetails.phone}</li>`
   str+=`<li class="list-group-item">Bestilt til: ${data.delTime} ${data.delDate} </li>`

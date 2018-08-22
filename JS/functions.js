@@ -1,35 +1,3 @@
-var request = require('request');
-
-var geocodeAddress = (address, callback) => {
-  var origins = 'hovedgaden 8 sorring';
-  var encodedAddress = encodeURIComponent(address);
-  var key = 'AIzaSyBWj7fPMDX2SbsPOBU7Ae7tofoJgZ_ryNU';
-  request({
-    url :`https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origins}&destinations=${encodedAddress}&language=dk-DK&key=${key}`,
-    json: true
-  },(error, response, body) => {
-    if(error){
-      callback('unable to connect to google servers.');
-    }//else if(body.status==='ZERO_RESULTS'){
-      else if(body.rows[0].elements[0].status==='NOT_FOUND'){
-      callback('kunne ikke finde den adresse, indtast venligst en gyldig adresse!')
-    }else if(body.status==='OK' && body.rows[0].elements[0].status!=='NOT_FOUND'){
-      callback(undefined, {
-          distance: body.rows[0].elements[0].distance.text,
-          duration: body.rows[0].elements[0].duration.text
-      });
-    }
-    else{
-      callback({
-        body: body,
-        destination: body.destination_address,
-        origin: response.body.origin_address,
-        statusCode: response.statusCode
-      })
-    }
-  })
-}//end geocode
-
 let getTime = (shopTime) => {
   let d = new Date(Date.now()+shopTime);
   let mins = d.getMinutes();
@@ -74,5 +42,5 @@ let getDate = (shopTime)=>{
 }//end getDate
 
 module.exports = {
-    getTime, getDate, geocodeAddress
+    getTime, getDate
 }

@@ -138,8 +138,6 @@ router.get('/bestilling',middleware.indexIsLoggedIn, async (req, res)=>{
 //send bestilling til shoppen
 router.post('/sendBestilling',middleware.indexIsLoggedIn, middleware.checkBestillingBody, async (req, res, next)=>{
   var cart = new Cart(req.session.cart);
-
-
   //if cash payment && asap && pickup
   if(req.body.cashOnline==='cash' && req.body.asapPick==='asap' && req.body.pickupDelivery==='pickup'){
     //get del/pickup time
@@ -154,51 +152,51 @@ router.post('/sendBestilling',middleware.indexIsLoggedIn, middleware.checkBestil
       city: req.body.inputCity,
       phone: req.body.inputPhone
     }
-    let route = await geocode.getLocation(address)
-    if(route === 'NOT FOUND'){ //if errormessage from geocodeAddress
-      req.flash('errors', 'kunne ikke finde den adresse');
-      res.redirect('/bestilling');
-    }else{
-      //save order to variable
-      let orderTime = functions.getTime(shopPickupTime);
-      let orderDate = functions.getDate(shopPickupTime);
-      var order = new Order({
-      user: req.user, //from passport
-      cart,
-      paymentType: req.body.inputStateBetaling,
-      deliveryType: req.body.pickupDelivery,
-      dateTime,
-      delTime: orderTime,
-      delDate: orderDate,
-      processed: false,
-      customerDetails
-      });
-      order.save((err, result)=>{
-        if(err){
-          console.log(err);
-          res.redirect('some-thing-went-wrong',{
-            errorMSG: 'Noget gik galt, prøv venligst igen, eller kontakt restaurenten'
-          })//end res.redirect
-        }//end if
-        var id = order._id;
-        //socket io stuff here send to OMS
-        res.io.emit('newOrder', {
-          id,
-          totalPrice: order.cart.totalPrice,
-          order,
-          user: req.user,
-          route,
-          dateTime,
-          delTime: orderTime,
-          delDate: orderDate,
-          customerDetails
-        });//end res.io.emit
-        res.redirect(`processing?id=${id}`);
-      })//end order.save
-    }//end else
+    geocode.geocodeAddress(address, (errorMessage, routeResults)=>{
+      if(errorMessage){ //if errormessage from geocodeAddress
+        req.flash('errors', errorMessage);
+        res.redirect('/bestilling');
+      }else{
+        var route = routeResults;
+        //save order to variable
+        let orderTime = functions.getTime(shopPickupTime);
+        let orderDate = functions.getDate(shopPickupTime);
+        var order = new Order({
+        user: req.user, //from passport
+        cart,
+        paymentType: req.body.inputStateBetaling,
+        deliveryType: req.body.pickupDelivery,
+        dateTime,
+        delTime: orderTime,
+        delDate: orderDate,
+        processed: false,
+        customerDetails
+        });
+        order.save((err, result)=>{
+          if(err){
+            console.log(err);
+            res.redirect('some-thing-went-wrong',{
+              errorMSG: 'Noget gik galt, prøv venligst igen, eller kontakt restaurenten'
+            })//end res.redirect
+          }//end if
+          var id = order._id;
+          //socket io stuff here send to OMS
+          res.io.emit('newOrder', {
+            id,
+            totalPrice: order.cart.totalPrice,
+            order,
+            user: req.user,
+            route,
+            dateTime,
+            delTime: orderTime,
+            delDate: orderDate,
+            customerDetails
+          });//end res.io.emit
+          res.redirect(`processing?id=${id}`);
+        })//end order.save
+      }//end else
+    })//end geocodeAddress
   } //end if cash payment && asap && pickup
-
-
   else{
     res.render('shop/sendBestilling',{
       okay: 'Okay',
