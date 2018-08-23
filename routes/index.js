@@ -139,37 +139,41 @@ router.get('/bestilling',middleware.indexIsLoggedIn, async (req, res)=>{
 router.post('/sendBestilling',middleware.indexIsLoggedIn, middleware.checkBestillingBody, async (req, res, next)=>{
   var cart = new Cart(req.session.cart);
 
+  //customer & shoptime details stored in var
+  let customerDetails = {
+    name:req.body.inputName,
+    address: req.body.inputAddress,
+    zip: req.body.inputZip,
+    city: req.body.inputCity,
+    phone: req.body.inputPhone
+  }
+  let address = req.body.inputAddress + req.body.inputZip + req.body.inputCity;
+  let shopTime = await Shop.find({timeId: 1});
+  let shopPickupTime = shopTime[0].pickupTime;
+  let shopDelTime = shopTime[0].delTime;
+  let d = new Date(Date.now());
+  let orderPickupTime = functions.getTime(shopPickupTime);
+  let orderPickupDate = functions.getDate(shopPickupTime);
+  let orderDelTime = functions.getTime(shopDelTime);
+  let orderDelDate = functions.getDate(shopDelTime);
 
   //if cash payment && asap && pickup
   if(req.body.cashOnline==='cash' && req.body.asapPick==='asap' && req.body.pickupDelivery==='pickup'){
     //get del/pickup time
-    let shopTime = await Shop.find({timeId: 1});
-    let shopPickupTime = shopTime[0].pickupTime;
-    let dateTime = new Date(Date.now()+shopPickupTime);
-    let address = req.body.inputAddress + req.body.inputZip + req.body.inputCity; console.log('address is '+address);
-    let customerDetails = {
-      name:req.body.inputName,
-      address: req.body.inputAddress,
-      zip: req.body.inputZip,
-      city: req.body.inputCity,
-      phone: req.body.inputPhone
-    }
     let route = await geocode.getLocation(address)
     if(route === 'NOT FOUND'){ //if errormessage from geocodeAddress
       req.flash('errors', 'kunne ikke finde den adresse');
       res.redirect('/bestilling');
     }else{
       //save order to variable
-      let orderTime = functions.getTime(shopPickupTime);
-      let orderDate = functions.getDate(shopPickupTime);
       var order = new Order({
       user: req.user, //from passport
       cart,
       paymentType: req.body.inputStateBetaling,
       deliveryType: req.body.pickupDelivery,
-      dateTime,
-      delTime: orderTime,
-      delDate: orderDate,
+      dateTime: d,
+      delTime: orderPickupTime,
+      delDate: orderPickupDate,
       processed: false,
       customerDetails
       });
@@ -188,9 +192,9 @@ router.post('/sendBestilling',middleware.indexIsLoggedIn, middleware.checkBestil
           order,
           user: req.user,
           route,
-          dateTime,
-          delTime: orderTime,
-          delDate: orderDate,
+          d,
+          delTime: orderPickupTime,
+          delDate: orderPickupDate,
           customerDetails
         });//end res.io.emit
         res.redirect(`processing?id=${id}`);

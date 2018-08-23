@@ -87,6 +87,8 @@ typings/
 # vuepress build output
 .vuepress/dist
 
+arkiv
+
 # Serverless directories
 .serverless
 © 2018 GitHub, Inc.
