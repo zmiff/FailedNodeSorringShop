@@ -1,5 +1,5 @@
-let getTime = (shopTime) => {
-  let d = new Date(Date.now()+shopTime);
+let getTime = (dateTime) => {
+  let d = new Date(dateTime);
   let mins = d.getMinutes();
   if(mins<10){
     mins= '0'+mins;
@@ -9,8 +9,8 @@ let getTime = (shopTime) => {
   return (`${hours}:${mins}`);
 };//end getTime
 
-let getDate = (shopTime)=>{
-  let d = new Date(Date.now()+shopTime);
+let getDate = (dateTime)=>{
+  let d = new Date(dateTime);
   var day = d.getDate();
   let weekDay = '';
   switch (d.getDay()) {

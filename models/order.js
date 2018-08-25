@@ -10,6 +10,7 @@ var schema = new Schema({
   paymentType: {type: String, required: true},
   deliveryType: {type: String, requried: true},
   dateTime: {type: Date, required: true},
+  delDateTime: {type: Date, required: true},
   delTime: {type: String},
   delDate: {type: String},
   route: {type: Object},

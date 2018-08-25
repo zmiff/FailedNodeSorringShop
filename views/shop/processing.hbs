@@ -21,7 +21,9 @@
   console.log(data.connected)
   });
   socket.on(`Accepted${id}`, function(data){
-    window.location.href = `/accepted?id=${id}`;
+    let time = data.time;
+    let date = data.date
+    window.location.href = `/accepted?id=${id}&time=${time}&date=${date}`;
   });
   socket.on(`declined${id}`, function(data){
     window.location.href = `/declined?id=${id}`;

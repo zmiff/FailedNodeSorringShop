@@ -22,6 +22,12 @@ socket.on('newOrder', function(data){
   str+=`<li class="list-group-item">${data.customerDetails.name}<br>${data.customerDetails.address}<br>${data.customerDetails.zip} ${data.customerDetails.city}<br>${data.customerDetails.phone}</li>`
   str+=`<li class="list-group-item">Bestilt til: ${data.delTime} ${data.delDate} </li>`
   str+=`<form action="/oms/monitor" method="post">`;
+  str+=`<li class="list-group-item">`
+  str+=`<label for="inputStateLevering">Forlæng med minutter</label>`
+  str+=`<select name="inputStateForlæng" id="inputStateForlæng" class="form-control">`
+  str+=`<option selected="selected">0</option>`
+  str+=`<option>10</option><option>20</option><option>30</option><option>40</option><option>50</option><option>60</select></li></option>`
+  str+=`</select></li>`
   str+=`<input name='orderId' value='${data.id}' hidden />`;
   str+=`<input name="btnAcceptOrder" id="btnAcceptOrder${data.id}" type="submit" class="btn btn-success" value="Accepter"/> <input name="btnDeclineOrder" id="btnDeclineOrder${data.id}" type="submit" class="btn btn-danger btnDecline" value="Afvis"/>`;
   str+="</form></ul><hr>"

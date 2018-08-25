@@ -119,7 +119,8 @@ router.get('/find',(req, res)=>{
 });
 
 //bestilling
-router.get('/bestilling',middleware.indexIsLoggedIn, middleware.isShopping, async (req, res)=>{
+//add middleware.hasCartSession
+router.get('/bestilling',middleware.indexIsLoggedIn, async (req, res)=>{
   var cart = new Cart(req.session.cart);
   var user = req.user;
   let shopTime = await Shop.findOne({timeId: 1});
@@ -138,7 +139,8 @@ router.get('/bestilling',middleware.indexIsLoggedIn, middleware.isShopping, asyn
 });
 
 //send bestilling til shoppen
-router.post('/sendBestilling',middleware.indexIsLoggedIn, middleware.checkBestillingBody, middleware.hasCartSession async (req, res, next)=>{
+//add middleware.hasCartSession
+router.post('/sendBestilling',middleware.indexIsLoggedIn, middleware.checkBestillingBody, async (req, res, next)=>{
   var cart = new Cart(req.session.cart);
 
   //customer & shoptime details stored in var
@@ -153,11 +155,13 @@ router.post('/sendBestilling',middleware.indexIsLoggedIn, middleware.checkBestil
   let shopTime = await Shop.find({timeId: 1});
   let shopPickupTime = shopTime[0].pickupTime;
   let shopDelTime = shopTime[0].delTime;
-  let d = new Date(Date.now());
-  let orderPickupTime = functions.getTime(shopPickupTime);
-  let orderPickupDate = functions.getDate(shopPickupTime);
-  let orderDelTime = functions.getTime(shopDelTime);
-  let orderDelDate = functions.getDate(shopDelTime);
+  let d = Date.now();
+  let pickupTime = d+shopPickupTime
+  let delTime = d+shopDelTime
+  let orderPickupTime = functions.getTime(pickupTime);
+  let orderPickupDate = functions.getDate(pickupTime);
+  let orderDelTime = functions.getTime(delTime);
+  let orderDelDate = functions.getDate(delTime);
 
   //if cash payment && asap && pickup
   if(req.body.cashOnline==='cash' && req.body.asapPick==='asap' && req.body.pickupDelivery==='pickup'){
@@ -174,6 +178,7 @@ router.post('/sendBestilling',middleware.indexIsLoggedIn, middleware.checkBestil
       paymentType: req.body.inputStateBetaling,
       deliveryType: req.body.pickupDelivery,
       dateTime: d,
+      delDateTime: pickupTime,
       delTime: orderPickupTime,
       delDate: orderPickupDate,
       route,
@@ -214,11 +219,12 @@ router.post('/sendBestilling',middleware.indexIsLoggedIn, middleware.checkBestil
     });
   }
 
-  req.session.cart={}
+  // remove comment when done testing req.session.cart={}
 });
 
-router.get('/processing', middleware.indexIsLoggedIn, middleware.hasCartSession, (req, res)=>{
-    delete req.session.cart;
+//add middleware.hasCartSession
+router.get('/processing', middleware.indexIsLoggedIn, (req, res)=>{
+    //remove comment when done testing delete req.session.cart;
     var order = req.query.id;
     res.render('shop/processing',{
       order
@@ -228,7 +234,12 @@ router.get('/processing', middleware.indexIsLoggedIn, middleware.hasCartSession,
 router.get('/accepted', middleware.indexIsLoggedIn, (req, res)=>{
   //res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   var id = req.query.id;
+  var time = req.query.time;
+  var date = req.query.date
   res.render('shop/accepted',{
+    id,
+    time,
+    date
   })
 })//end accepted
 

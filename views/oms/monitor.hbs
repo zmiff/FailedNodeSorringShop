@@ -21,6 +21,18 @@
         <li class="list-group-item">{{this.customerDetails.name}}<br>{{this.customerDetails.address}}<br>{{this.customerDetails.zip}} {{this.customerDetails.city}}<br>{{this.customerDetails.phone}}</li>
         <li class="list-group-item">Bestilt til: {{this.delTime}} {{this.delDate}} </li>
         <form action="/oms/monitor" method="post">
+          <li class="list-group-item">
+            <label for="inputStateLevering">Forlæng med minutter</label>
+            <select name="inputStateForlæng" id="inputStateForlæng" class="form-control">
+              <option selected="selected">0</option>
+              <option>10</option>
+              <option>20</option>
+              <option>30</option>
+              <option>40</option>
+              <option>50</option>
+              <option>60</option>
+            </select>
+          </li>
           <input name='orderId' value='{{this._id}}' hidden />
           <input name="btnAcceptOrder" id="btnAcceptOrder{{this._id}}" type="submit" class="btnAcceptOrder btn btn-success" value="Accepter"/> <input name="btnDeclineOrder" id="btnDeclineOrder{{this._id}}" type="submit" class="btn btn-danger btnDecline" value="Afvis"/>
         </form></ul><hr>
