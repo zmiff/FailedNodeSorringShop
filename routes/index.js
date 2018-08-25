@@ -42,6 +42,8 @@ router.get('/', async(req, res, next)=>{
     //we create a new cart everytime the add button is pressed, and the old cart is inserted to the new cart. the old cart is already stored in the session req.session.cart ? if it does exist, if it doesnt we add an empty js object {}.
     var cart = new Cart(req.session.cart ? req.session.cart : {});
 
+    req.session.shopping = true;
+
     Product.findById(productId, function(err, product){
       if(err){
         return res.redirect('/');
@@ -117,7 +119,7 @@ router.get('/find',(req, res)=>{
 });
 
 //bestilling
-router.get('/bestilling',middleware.indexIsLoggedIn, async (req, res)=>{
+router.get('/bestilling',middleware.indexIsLoggedIn, middleware.isShopping, async (req, res)=>{
   var cart = new Cart(req.session.cart);
   var user = req.user;
   let shopTime = await Shop.findOne({timeId: 1});
@@ -136,7 +138,7 @@ router.get('/bestilling',middleware.indexIsLoggedIn, async (req, res)=>{
 });
 
 //send bestilling til shoppen
-router.post('/sendBestilling',middleware.indexIsLoggedIn, middleware.checkBestillingBody, async (req, res, next)=>{
+router.post('/sendBestilling',middleware.indexIsLoggedIn, middleware.checkBestillingBody, middleware.hasCartSession async (req, res, next)=>{
   var cart = new Cart(req.session.cart);
 
   //customer & shoptime details stored in var
@@ -174,7 +176,9 @@ router.post('/sendBestilling',middleware.indexIsLoggedIn, middleware.checkBestil
       dateTime: d,
       delTime: orderPickupTime,
       delDate: orderPickupDate,
+      route,
       processed: false,
+      status: 'pending',
       customerDetails
       });
       order.save((err, result)=>{
@@ -209,16 +213,20 @@ router.post('/sendBestilling',middleware.indexIsLoggedIn, middleware.checkBestil
       tid: 1
     });
   }
+
+  req.session.cart={}
 });
 
-router.get('/processing', middleware.indexIsLoggedIn, (req, res)=>{
-  var order = req.query.id;
-  res.render('shop/processing',{
-    order
-  })
-});//end render processing
+router.get('/processing', middleware.indexIsLoggedIn, middleware.hasCartSession, (req, res)=>{
+    delete req.session.cart;
+    var order = req.query.id;
+    res.render('shop/processing',{
+      order
+    })//end render shop/processing
+});//end get processing
 
 router.get('/accepted', middleware.indexIsLoggedIn, (req, res)=>{
+  //res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   var id = req.query.id;
   res.render('shop/accepted',{
   })

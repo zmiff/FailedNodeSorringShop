@@ -1,6 +1,5 @@
 var socket = io.connect();
 socket.on('newOrder', function(data){
-  console.log(data);
   $items = [];
 
   for(var i in data.order.cart.items){
@@ -24,22 +23,8 @@ socket.on('newOrder', function(data){
   str+=`<li class="list-group-item">Bestilt til: ${data.delTime} ${data.delDate} </li>`
   str+=`<form action="/oms/monitor" method="post">`;
   str+=`<input name='orderId' value='${data.id}' hidden />`;
-  str+='<input name="status" id="status" hidden />'
   str+=`<input name="btnAcceptOrder" id="btnAcceptOrder${data.id}" type="submit" class="btn btn-success" value="Accepter"/> <input name="btnDeclineOrder" id="btnDeclineOrder${data.id}" type="submit" class="btn btn-danger btnDecline" value="Afvis"/>`;
   str+="</form></ul><hr>"
 
   $('#omsMonitorDiv').append(str);
-
-  $(`#btnAcceptOrder${data.id}`).on("click", (e)=>{
-    $('#status').val('accepted');
-    console.log(`order: ${data.id} accepted`);
-    /*
-    e.preventDefault();
-    socket.emit('Accepted', {id: data.id, status: 'Accepted'});
-    */
-  });
-  $(`#btnDeclineOrder${data.id}`).on("click", (e)=>{
-    $('#status').val('declined');
-    console.log(`order: ${data.id} declined`);
-  });
 });

@@ -1,4 +1,12 @@
 module.exports = {
+  // only routes with session.cart can view
+  hasCartSession: function(req, res, next){
+    if(!req.session.cart){
+      res.redirect('/');
+    }else{
+      return next();
+    }
+  },
   //protect routes, can only access them when logged in
   isLoggedIn: function(req, res, next){
     if(req.isAuthenticated()){ //isAuthenticated() is managed by passport.js
@@ -49,9 +57,5 @@ module.exports = {
       return;
     }//end if errors validation
     return next();
-  }/*
-  checkSignupBody: function(req, res, next){
-    req.checkBody('email', 'Indtast venligst din email').notEmpty().escape().trim();
-    req.checkBody('email', 'Indtast venligst din email').notEmpty().escape().trim();
-  }*/
+  }
 }

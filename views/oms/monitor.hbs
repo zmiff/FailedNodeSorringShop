@@ -6,9 +6,32 @@
     <!-- append new orders here-->
   </div>
   <div class="col-md-6 offset-3" id="omsTodayDiv">
-    <!-- append today orders here-->
+    <!-- load pending orders here-->
+    {{# if pendingOrders}}
+      <ul class="list-group">
+        {{# each pendingOrders}}
+          {{# each this.cart.items}}
+            <li class="list-group-item">{{this.item.title}}<span class="float-right">{{this.item.price}} kr</span>
+              {{# each this.toppings}}
+                <p class="OMS-toppingsP">{{this.title}}</p>
+              {{/ each}}
+          {{/each}}
+        </li><li class="list-group-item"><p>Afstand til kunde: <span class="float-right">{{this.route.distance.text}} {{this.route.duration.text}}</span></p></li>
+        <li class="list-group-item"><p class="font-weight-bold">Total: <span class="float-right">{{this.cart.totalPrice}} kr</span></p></li>
+        <li class="list-group-item">{{this.customerDetails.name}}<br>{{this.customerDetails.address}}<br>{{this.customerDetails.zip}} {{this.customerDetails.city}}<br>{{this.customerDetails.phone}}</li>
+        <li class="list-group-item">Bestilt til: {{this.delTime}} {{this.delDate}} </li>
+        <form action="/oms/monitor" method="post">
+          <input name='orderId' value='{{this._id}}' hidden />
+          <input name="btnAcceptOrder" id="btnAcceptOrder{{this._id}}" type="submit" class="btnAcceptOrder btn btn-success" value="Accepter"/> <input name="btnDeclineOrder" id="btnDeclineOrder{{this._id}}" type="submit" class="btn btn-danger btnDecline" value="Afvis"/>
+        </form></ul><hr>
+        {{/ each}}
+      </ul>
+    {{/if}}
   </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
 <script src="/javascript/monitor.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+</script>

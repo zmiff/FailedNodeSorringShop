@@ -12,8 +12,10 @@ var schema = new Schema({
   dateTime: {type: Date, required: true},
   delTime: {type: String},
   delDate: {type: String},
+  route: {type: Object},
   customerDetails: {type:Object},
-  processed: {type: Boolean, required: true}
+  processed: {type: Boolean, required: true},
+  status: {type: String}
 });
 
 module.exports = mongoose.model('Order', schema)
