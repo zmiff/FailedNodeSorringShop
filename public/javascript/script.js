@@ -1,4 +1,16 @@
 $(document).ready(function(){
+  //monitor.hbs change print extend time
+    $('.inputStateExtend').on('change', function(){
+      if($(this).val()==0){
+        $(this).parent().next().removeClass('onlyprint').addClass('noprint')
+        $(this).parent().next().text('')
+      }else{
+        $(this).parent().next().removeClass('noprint').addClass('onlyprint')
+        $(this).parent().next().text('Forlænget med: '+$(this).val()+' minutter')
+      }
+
+    });
+
   //Hide show timepicker
   $("#inputStateLevering").change(function(){
       if($("#inputStateLevering").val() === "Afhentning vælg tidspunkt" || $("#inputStateLevering").val() === "Udbringnig vælg tidspunkt +30 kr"){
@@ -116,5 +128,4 @@ if(deliveryTime){
 
 }//end if deltime != undefined
 
-
-});
+});//end document ready

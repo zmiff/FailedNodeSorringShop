@@ -6,6 +6,7 @@ socket.on('newOrder', function(data){
     $items.push(data.order.cart.items[i]);
   };
   str = `<ul class="list-group">`
+  str+= `<li class="list-group-item"><span style="font-weight:bold">${data.delType}</span></li>`
   $.each($items, function(index, value){
     if($items.toppings!=={}){
       str+= `<li class="list-group-item">${value.item.title}<span class="float-right">${value.item.price} kr</span>`

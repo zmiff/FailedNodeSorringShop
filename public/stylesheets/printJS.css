@@ -1,0 +1,15 @@
+.noprint{
+  display: none !important;
+}
+
+.onlyprint{
+  display: block !important
+}
+
+.float-right{
+  float: right;
+}
+
+#extend{
+  display: block !important;
+}

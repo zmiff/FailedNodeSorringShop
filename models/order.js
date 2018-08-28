@@ -16,7 +16,9 @@ var schema = new Schema({
   route: {type: Object},
   customerDetails: {type:Object},
   processed: {type: Boolean, required: true},
-  status: {type: String}
+  status: {type: String},
+  delType: {type: String},
+  timeType: {type: String}
 });
 
 module.exports = mongoose.model('Order', schema)

@@ -184,7 +184,8 @@ router.post('/sendBestilling',middleware.indexIsLoggedIn, middleware.checkBestil
       route,
       processed: false,
       status: 'pending',
-      customerDetails
+      customerDetails,
+      delType: 'AFHENTNING',
       });
       order.save((err, result)=>{
         if(err){
@@ -204,7 +205,8 @@ router.post('/sendBestilling',middleware.indexIsLoggedIn, middleware.checkBestil
           d,
           delTime: orderPickupTime,
           delDate: orderPickupDate,
-          customerDetails
+          customerDetails,
+          delType: 'AFHENTNING'
         });//end res.io.emit
         res.redirect(`processing?id=${id}`);
       })//end order.save
@@ -231,15 +233,14 @@ router.get('/processing', middleware.indexIsLoggedIn, (req, res)=>{
     })//end render shop/processing
 });//end get processing
 
-router.get('/accepted', middleware.indexIsLoggedIn, (req, res)=>{
+router.get('/accepted', middleware.indexIsLoggedIn, async(req, res)=>{
   //res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   var id = req.query.id;
-  var time = req.query.time;
-  var date = req.query.date
+  let order = await Order.findById(id);
   res.render('shop/accepted',{
     id,
-    time,
-    date
+    time: order.delTime,
+    date: order.delDate
   })
 })//end accepted
 
